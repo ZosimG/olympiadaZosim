@@ -1,0 +1,1318 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api-token-auth/:
+    post:
+      operationId: api_token_auth_create
+      tags:
+      - api-token-auth
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/adduser:
+    post:
+      operationId: api_adduser_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/application:
+    post:
+      operationId: api_application_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/applicationstatus/{id}:
+    put:
+      operationId: api_applicationstatus_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/applicationstatuses:
+    put:
+      operationId: api_applicationstatuses_update
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/country:
+    post:
+      operationId: api_country_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/employee:
+    post:
+      operationId: api_employee_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getapplication/{id}:
+    get:
+      operationId: api_getapplication_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getapplication_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_getapplication_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/getapplications:
+    get:
+      operationId: api_getapplications_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+          description: ''
+  /api/getcountries:
+    get:
+      operationId: api_getcountries_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Country'
+          description: ''
+  /api/getcountry/{id}:
+    get:
+      operationId: api_getcountry_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getcountry_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_getcountry_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/getemployee/{id}:
+    get:
+      operationId: api_getemployee_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getemployee_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_getemployee_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/getemployees:
+    get:
+      operationId: api_getemployees_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+          description: ''
+  /api/getgenders:
+    get:
+      operationId: api_getgenders_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getolympiada/{id}:
+    get:
+      operationId: api_getolympiada_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getolympiada_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_getolympiada_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/getolympiadas:
+    get:
+      operationId: api_getolympiadas_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Olymp'
+          description: ''
+  /api/getparticipant/{id}:
+    get:
+      operationId: api_getparticipant_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getparticipant_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getparticipants:
+    get:
+      operationId: api_getparticipants_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Participant'
+          description: ''
+  /api/getresult/{id}:
+    get:
+      operationId: api_getresult_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getresult_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getresults:
+    get:
+      operationId: api_getresults_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result'
+          description: ''
+  /api/getroles:
+    get:
+      operationId: api_getroles_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getschool/{id}:
+    get:
+      operationId: api_getschool_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getschool_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_getschool_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/getschools:
+    get:
+      operationId: api_getschools_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/School'
+          description: ''
+  /api/getstudent/{id}:
+    get:
+      operationId: api_getstudent_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getstudents:
+    get:
+      operationId: api_getstudents_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+          description: ''
+  /api/getsubdivision/{id}:
+    get:
+      operationId: api_getsubdivision_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_getsubdivision_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getsubdivisions:
+    get:
+      operationId: api_getsubdivisions_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subdivision'
+          description: ''
+  /api/getuser:
+    get:
+      operationId: api_getuser_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/getusers:
+    get:
+      operationId: api_getusers_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSerializer_confident'
+          description: ''
+  /api/olympiada:
+    post:
+      operationId: api_olympiada_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/participant:
+    post:
+      operationId: api_participant_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/result:
+    post:
+      operationId: api_result_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/school:
+    post:
+      operationId: api_school_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/subdivision:
+    post:
+      operationId: api_subdivision_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/uploadfile:
+    put:
+      operationId: api_uploadfile_update
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /upload/{filename}:
+    put:
+      operationId: upload_update
+      parameters:
+      - in: path
+        name: filename
+        schema:
+          type: string
+          pattern: ^[^/]+$
+        required: true
+      tags:
+      - upload
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /upload/participants/{olymp_id}/{filename}:
+    put:
+      operationId: upload_participants_update
+      parameters:
+      - in: path
+        name: filename
+        schema:
+          type: string
+          pattern: ^[^/]+$
+        required: true
+      - in: path
+        name: olymp_id
+        schema:
+          type: string
+          pattern: ^\d+$
+        required: true
+      tags:
+      - upload
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /uploadsubdivision/{filename}:
+    put:
+      operationId: uploadsubdivision_update
+      parameters:
+      - in: path
+        name: filename
+        schema:
+          type: string
+          pattern: ^[^/]+$
+        required: true
+      tags:
+      - uploadsubdivision
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student:
+          allOf:
+          - $ref: '#/components/schemas/Student'
+          readOnly: true
+        student_id:
+          type: integer
+          writeOnly: true
+        olymp:
+          allOf:
+          - $ref: '#/components/schemas/Olymp'
+          readOnly: true
+        olymp_id:
+          type: integer
+          writeOnly: true
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Дата регистрации
+        employee:
+          type: integer
+          nullable: true
+          title: Ответственный
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: Статус заявки
+          minimum: -9223372036854775808
+          maximum: 9223372036854775807
+        participate:
+          type: integer
+          maximum: 12
+          minimum: 1
+          title: Класс участия
+        school:
+          allOf:
+          - $ref: '#/components/schemas/School'
+          readOnly: true
+        school_id:
+          type: integer
+          writeOnly: true
+        teacher:
+          type: integer
+          nullable: true
+          title: Учитель
+        subdivision:
+          allOf:
+          - $ref: '#/components/schemas/Subdivision'
+          readOnly: true
+        subdivision_id:
+          type: integer
+          writeOnly: true
+      required:
+      - date
+      - id
+      - olymp
+      - olymp_id
+      - participate
+      - school
+      - school_id
+      - student
+      - student_id
+      - subdivision
+      - subdivision_id
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    Country:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        country_name:
+          type: string
+          title: Название страны
+          maxLength: 200
+      required:
+      - country_name
+      - id
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          minimum: -9223372036854775808
+          maximum: 9223372036854775807
+        user:
+          type: integer
+          nullable: true
+          title: Пользователь
+      required:
+      - id
+      - name
+    Olymp:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        olymp_name:
+          type: string
+          title: Наименование
+          maxLength: 200
+        olymp_date_start:
+          type: string
+          format: date
+          title: Дата проведения
+        olymp_time:
+          type: string
+          format: time
+          title: Длительность
+      required:
+      - id
+      - olymp_date_start
+      - olymp_name
+      - olymp_time
+    Participant:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student:
+          allOf:
+          - $ref: '#/components/schemas/Student'
+          readOnly: true
+        student_id:
+          type: integer
+          writeOnly: true
+        application:
+          allOf:
+          - $ref: '#/components/schemas/Application'
+          readOnly: true
+        application_id:
+          type: integer
+          writeOnly: true
+      required:
+      - application
+      - application_id
+      - id
+      - student
+      - student_id
+    Result:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        participant:
+          allOf:
+          - $ref: '#/components/schemas/Participant'
+          readOnly: true
+        participant_id:
+          type: integer
+          writeOnly: true
+        task_number:
+          type: string
+          title: Номер задачи
+          maxLength: 1
+        result_value:
+          type: integer
+          maximum: 100
+          minimum: 0
+          title: Балл
+      required:
+      - id
+      - participant
+      - participant_id
+      - result_value
+      - task_number
+    RoleEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Организатор
+        * `1` - Представитель муниципалитета
+        * `2` - Учитель
+    School:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        school_name:
+          type: string
+          title: Название образовательной организации
+          maxLength: 200
+        school_subdivision:
+          type: integer
+          nullable: true
+          title: Местоположение
+      required:
+      - id
+      - school_name
+    SexEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Мужской
+        * `1` - Женский
+    StatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - В ожидании
+        * `1` - Принята
+        * `2` - Отклонена
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        birthday:
+          type: string
+          format: date
+          title: Дата рождения
+        course_study:
+          type: integer
+          maximum: 12
+          minimum: 1
+          title: Класс обучения
+        special_needs:
+          type: boolean
+          title: Ограниченные возможности здоровья
+        contact_phone:
+          type: string
+          title: Контактный номер телефона
+          maxLength: 20
+        country:
+          type: integer
+          nullable: true
+          title: Страна
+        sex:
+          allOf:
+          - $ref: '#/components/schemas/SexEnum'
+          title: Пол
+          minimum: -9223372036854775808
+          maximum: 9223372036854775807
+      required:
+      - birthday
+      - contact_phone
+      - course_study
+      - id
+      - name
+      - sex
+    Subdivision:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        subdivision_name:
+          type: string
+          title: Наименование района
+          maxLength: 200
+      required:
+      - id
+      - subdivision_name
+    UserSerializer_confident:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+      required:
+      - id
+      - username
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Olympiada, Person, Employee, Student, Application, Subdivision, School, Country
+from users.models import Person, Employee
+from schools.models import Subdivision, School
+from .models import Olympiada
+from applications.models import Application, Student, Country
 
 # Register your models here.
 admin.site.register(Olympiada)

@@ -1,16 +1,18 @@
 import os.path
 from django.shortcuts import get_object_or_404
-from .models import Olympiada, Employee, Application
+from applications.models import Application
+from users.models import Employee
+from applications.models import Olympiada
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
-from .parse_applications import ApplicationParser
-from .serializers import ApplicationSerializer
-from .serializers import ApplicationStatusSerializer, AppplicationsStatusSertializerMultiple
+from applications.parse_applications import ApplicationParser
+from common.serializers import ApplicationSerializer
+from applications.serializers import ApplicationStatusSerializer, AppplicationsStatusSertializerMultiple
 
-class ApplicationViewSet(APIView):
+class OneApplicationViewSet(APIView):
     def get(self, request, id, format=None):
         application = get_object_or_404(Application, pk=id)
         ser = ApplicationSerializer(application)
@@ -39,11 +41,13 @@ class ApplicationViewSet(APIView):
             return Response(ser.data)
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ApplicationViewList(ModelViewSet):
-    queryset = Application.objects.all()
-    serializer_class = ApplicationSerializer
 
-class AddApplicationViewSet(APIView):
+class ApplicationViewSet(ModelViewSet):
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer   
+    def get(self, request):
+        return super().list(request) 
+    
     def post(self, request):
         output = {"valid": False}
         if request.method == "POST":

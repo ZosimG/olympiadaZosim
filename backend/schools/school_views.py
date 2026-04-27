@@ -1,36 +1,58 @@
 import os.path
 from django.shortcuts import get_object_or_404
-from .models import Subdivision
+from .models import School
 from rest_framework.parsers import FileUploadParser
 from rest_framework import viewsets, status
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .serializers import SubdivisionSerializer
-from .parse_subdivisions import SubdivisionParser
+from schools.serializers import SchoolSerializer
+from .parse_schools import SchoolParser
 
-class SubdivisionViewSet(APIView):
+
+class OneSchoolViewSet(APIView):
     def get(self, request, id, format=None):
-        #id = request.GET['id']
-        subdivision = get_object_or_404(Subdivision, pk=id)
-        ser = SubdivisionSerializer(subdivision)
+        school = get_object_or_404(School, pk=id)
+        ser = SchoolSerializer(school)
         return Response(ser.data)
     def put(self, request, id, format=None):
         output = {"valid": False}
-        subdivision = get_object_or_404(Subdivision, pk=id)
-        ser = SubdivisionSerializer(subdivision, data=request.data)
+        school = get_object_or_404(School, pk=id)
+        ser = SchoolSerializer(school, data=request.data)
         if ser.is_valid():
             ser.save()
             output["valid"] = True
         return Response(output)
+    def delete(self, request, id, format=None):
+        output = {"valid": True, "message": ''}
+        if request.method == "DELETE":
+            school = get_object_or_404(School, pk=id)
+            apps = school.schools.all()
+            try:
+                if (len(apps) != 0):
+                    raise Exception
+                else:
+                    output["school"] = school.id
+                    school.delete()
+                    output["message"] = 'Успешно!'
+            except:
+                del output["school"]
+                output["valid"] = False
+                output["message"] = 'Ошибка!'
+            return Response(output)
 
-class AddSubdivisionViewSet(APIView):
+class SchoolViewSet(ModelViewSet):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+    def get(self, request):
+        return super().list(request)
+    
     def post(self, request):
         output = {"valid": False}
         if request.method == "POST":
             try:
-                ser = SubdivisionSerializer(data=request.data, many=True)
+                ser = SchoolSerializer(data=request.data)
                 if ser.is_valid():
                     ser.save()
                     output["valid"] = True
@@ -42,18 +64,15 @@ class AddSubdivisionViewSet(APIView):
                 output['msg'] = 'Ошибка при сохранении'
         return Response(output)
 
-class SubdivisionViewList(ModelViewSet):
-    queryset = Subdivision.objects.all()
-    serializer_class = SubdivisionSerializer
-
-class SubdivisionFileUploadView(APIView):
+class FileUploadView(APIView):
     parser_classes = [FileUploadParser]
     def put(self, request, filename, format=None):
         folder='folder'
         result = {"error": ""}
+
         file_obj = request.data['file']
         full_path = os.path.join(folder, filename)
         with open(full_path, 'wb') as f:
             f.write(file_obj.read())
-        result["error"] += SubdivisionParser.parse_excel(full_path)
+        result["error"] += SchoolParser.parse_excel(full_path)
         return Response(result)

@@ -6,6 +6,3 @@ from users.models import Employee, Person, ROLES
 from applications.models import Student, Country, Application
 from .models import Olympiada
 
-
-class Factory():
-    pass

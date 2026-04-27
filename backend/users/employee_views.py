@@ -9,13 +9,14 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .serializers import EmployeeSerializer
+from users.serializers import EmployeeSerializer
 
-class EmployeeViewSet(APIView):
+class OneEmployeeViewSet(APIView):
     def get(self, request, id, format=None):
         employee = get_object_or_404(Employee, pk=id)
         ser = EmployeeSerializer(employee)
         return Response(ser.data)
+    
     def delete(self, request, id, format=None):
         output = {"valid": True, "message": ''}
         if request.method == 'DELETE':
@@ -29,6 +30,7 @@ class EmployeeViewSet(APIView):
                 output["valid"] = False
                 output["message"] = 'Ошибка!'
             return Response(output)
+        
     def put(self, request, id, format=None):
         output = {"valid": False}
         employee = get_object_or_404(Employee, pk=id)
@@ -38,11 +40,18 @@ class EmployeeViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class AddEmployeeViewSet(APIView):
+class EmployeeViewSet(ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    def get(self, request):
+        #permission_classes = [permissions.IsAuthenticated]
+        return super().list(request)
+        
     # @extend_schema(
     #     request=EmployeeSerializer
     # )
     # @api_view(["POST"])
+    
     def post(self, request):
         output = {"valid": False}
         # ser = EmployeeSerializer(olympiada, request.data)
@@ -59,8 +68,3 @@ class AddEmployeeViewSet(APIView):
                 output['valid'] = False
                 output['msg'] = 'Ошибка при сохранении'
         return Response(output)
-
-class EmployeeViewList(ModelViewSet):
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    #permission_classes = [permissions.IsAuthenticated]

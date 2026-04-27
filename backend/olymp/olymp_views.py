@@ -6,9 +6,9 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .serializers import OlympSerializer
+from common.serializers import OlympSerializer
 
-class OlympViewSet(APIView):
+class OneOlympViewSet(APIView):
     def get(self, request, id, format=None):
         #id = request.GET['id']
         olympiada = get_object_or_404(Olympiada, pk=id)
@@ -38,7 +38,13 @@ class OlympViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class AddOlympViewSet(APIView):
+class OlympViewSet(ModelViewSet):
+    queryset = Olympiada.objects.all()
+    serializer_class = OlympSerializer
+    
+    def get(self, request):
+        return super().list(request)
+    
     def post(self, request):
         output = {"valid": False}
         # ser = OlympSerializer(olympiada, request.data)
@@ -56,6 +62,3 @@ class AddOlympViewSet(APIView):
                 output['msg'] = 'Ошибка при сохранении'
         return Response(output)
 
-class OlympViewList(ModelViewSet):
-    queryset = Olympiada.objects.all()
-    serializer_class = OlympSerializer

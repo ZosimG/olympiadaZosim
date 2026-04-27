@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from .factory import Factory
+from olymp.factory import Factory
 
 class SubdivisionParser():
     @classmethod

@@ -2,15 +2,17 @@ import os.path
 from io import BytesIO
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from .models import Olympiada, Employee, Application
+from .models import Application
+from users.models import Employee
+from olymp.models import Olympiada
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
 from .parse_applications import ApplicationParser
-from .serializers import ApplicationSerializer
-from .serializers import ApplicationStatusSerializer, AppplicationsStatusSertializerMultiple
+from applications.serializer_factory import get_application_serializer#ApplicationSerializer
+from applications.serializers import ApplicationStatusSerializer, AppplicationsStatusSertializerMultiple
 from .application_gen_excel import ApplicationGen
 
 class ApplicationGenView(APIView):

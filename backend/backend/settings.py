@@ -27,9 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5000",
+]
 
 # Application definition
 
@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'drf_spectacular'
+    'drf_spectacular',
+    'users',
+    'schools',
+    'applications'
 ]
 
 REST_FRAMEWORK = {
@@ -140,3 +143,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

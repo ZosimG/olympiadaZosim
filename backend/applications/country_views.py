@@ -5,9 +5,9 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .serializers import CountrySerializer
+from applications.serializers import CountrySerializer
 
-class CountryViewSet(APIView):
+class OneCountryViewSet(APIView):
     def get(self, request, id, format=None):
         country = get_object_or_404(Country, pk=id)
         ser = CountrySerializer(country)
@@ -37,11 +37,13 @@ class CountryViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class CountryViewList(ModelViewSet):
+
+class CountryViewSet(ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
-
-class AddCountryViewSet(APIView):
+    def get(self, request):
+        return super().list(request)
+    
     def post(self, request):
         output = {"valid": False}
         if request.method == "POST":

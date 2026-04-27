@@ -12,13 +12,13 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/AuthToken'
+              $ref: '#/components/schemas/AuthTokenRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/AuthToken'
+              $ref: '#/components/schemas/AuthTokenRequest'
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthToken'
+              $ref: '#/components/schemas/AuthTokenRequest'
         required: true
       security:
       - tokenAuth: []
@@ -30,9 +30,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/AuthToken'
           description: ''
-  /api/adduser:
-    post:
-      operationId: api_adduser_create
+  /api/application:
+    get:
+      operationId: api_application_retrieve
       tags:
       - api
       security:
@@ -42,7 +42,6 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/application:
     post:
       operationId: api_application_create
       tags:
@@ -52,7 +51,59 @@ paths:
       - basicAuth: []
       - {}
       responses:
+        '201':
+          description: No response body
+  /api/application/{id}:
+    get:
+      operationId: api_application_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
         '200':
+          description: No response body
+    put:
+      operationId: api_application_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_application_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
           description: No response body
   /api/applicationstatus/{id}:
     put:
@@ -85,6 +136,17 @@ paths:
         '200':
           description: No response body
   /api/country:
+    get:
+      operationId: api_country_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
     post:
       operationId: api_country_create
       tags:
@@ -94,9 +156,72 @@ paths:
       - basicAuth: []
       - {}
       responses:
+        '201':
+          description: No response body
+  /api/country/{id}:
+    get:
+      operationId: api_country_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
         '200':
           description: No response body
+    put:
+      operationId: api_country_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_country_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
   /api/employee:
+    get:
+      operationId: api_employee_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
     post:
       operationId: api_employee_create
       tags:
@@ -106,11 +231,11 @@ paths:
       - basicAuth: []
       - {}
       responses:
-        '200':
+        '201':
           description: No response body
-  /api/getapplication/{id}:
+  /api/employee/{id}:
     get:
-      operationId: api_getapplication_retrieve
+      operationId: api_employee_retrieve_2
       parameters:
       - in: path
         name: id
@@ -127,7 +252,7 @@ paths:
         '200':
           description: No response body
     put:
-      operationId: api_getapplication_update
+      operationId: api_employee_update
       parameters:
       - in: path
         name: id
@@ -144,7 +269,7 @@ paths:
         '200':
           description: No response body
     delete:
-      operationId: api_getapplication_destroy
+      operationId: api_employee_destroy
       parameters:
       - in: path
         name: id
@@ -160,48 +285,12 @@ paths:
       responses:
         '204':
           description: No response body
-  /api/getapplications:
+  /api/getapplicationexcel/{olymp_id}:
     get:
-      operationId: api_getapplications_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Application'
-          description: ''
-  /api/getcountries:
-    get:
-      operationId: api_getcountries_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Country'
-          description: ''
-  /api/getcountry/{id}:
-    get:
-      operationId: api_getcountry_retrieve
+      operationId: api_getapplicationexcel_retrieve
       parameters:
       - in: path
-        name: id
+        name: olymp_id
         schema:
           type: integer
         required: true
@@ -214,110 +303,6 @@ paths:
       responses:
         '200':
           description: No response body
-    put:
-      operationId: api_getcountry_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    delete:
-      operationId: api_getcountry_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '204':
-          description: No response body
-  /api/getemployee/{id}:
-    get:
-      operationId: api_getemployee_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    put:
-      operationId: api_getemployee_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    delete:
-      operationId: api_getemployee_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '204':
-          description: No response body
-  /api/getemployees:
-    get:
-      operationId: api_getemployees_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-          description: ''
   /api/getgenders:
     get:
       operationId: api_getgenders_retrieve
@@ -330,182 +315,6 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/getolympiada/{id}:
-    get:
-      operationId: api_getolympiada_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    put:
-      operationId: api_getolympiada_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    delete:
-      operationId: api_getolympiada_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '204':
-          description: No response body
-  /api/getolympiadas:
-    get:
-      operationId: api_getolympiadas_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Olymp'
-          description: ''
-  /api/getparticipant/{id}:
-    get:
-      operationId: api_getparticipant_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    put:
-      operationId: api_getparticipant_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-  /api/getparticipants:
-    get:
-      operationId: api_getparticipants_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Participant'
-          description: ''
-  /api/getresult/{id}:
-    get:
-      operationId: api_getresult_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    put:
-      operationId: api_getresult_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-  /api/getresults:
-    get:
-      operationId: api_getresults_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Result'
-          description: ''
   /api/getroles:
     get:
       operationId: api_getroles_retrieve
@@ -518,9 +327,50 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/getschool/{id}:
+  /api/getstudentfromolymp/{olymp_id}:
     get:
-      operationId: api_getschool_retrieve
+      operationId: api_getstudentfromolymp_retrieve
+      parameters:
+      - in: path
+        name: olymp_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/olympiada:
+    get:
+      operationId: api_olympiada_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: api_olympiada_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/olympiada/{id}:
+    get:
+      operationId: api_olympiada_retrieve_2
       parameters:
       - in: path
         name: id
@@ -537,7 +387,7 @@ paths:
         '200':
           description: No response body
     put:
-      operationId: api_getschool_update
+      operationId: api_olympiada_update
       parameters:
       - in: path
         name: id
@@ -554,7 +404,7 @@ paths:
         '200':
           description: No response body
     delete:
-      operationId: api_getschool_destroy
+      operationId: api_olympiada_destroy
       parameters:
       - in: path
         name: id
@@ -570,33 +420,9 @@ paths:
       responses:
         '204':
           description: No response body
-  /api/getschools:
+  /api/participant:
     get:
-      operationId: api_getschools_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/School'
-          description: ''
-  /api/getstudent/{id}:
-    get:
-      operationId: api_getstudent_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
+      operationId: api_participant_retrieve
       tags:
       - api
       security:
@@ -606,9 +432,8 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/getstudents:
-    get:
-      operationId: api_getstudents_list
+    post:
+      operationId: api_participant_create
       tags:
       - api
       security:
@@ -616,17 +441,11 @@ paths:
       - basicAuth: []
       - {}
       responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
-          description: ''
-  /api/getsubdivision/{id}:
+        '201':
+          description: No response body
+  /api/participant/{id}:
     get:
-      operationId: api_getsubdivision_retrieve
+      operationId: api_participant_retrieve_2
       parameters:
       - in: path
         name: id
@@ -643,7 +462,7 @@ paths:
         '200':
           description: No response body
     put:
-      operationId: api_getsubdivision_update
+      operationId: api_participant_update
       parameters:
       - in: path
         name: id
@@ -659,27 +478,15 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/getsubdivisions:
+  /api/result/{id}:
     get:
-      operationId: api_getsubdivisions_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Subdivision'
-          description: ''
-  /api/getuser:
-    get:
-      operationId: api_getuser_retrieve
+      operationId: api_result_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
       - api
       security:
@@ -689,27 +496,26 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/getusers:
+    put:
+      operationId: api_result_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/results:
     get:
-      operationId: api_getusers_list
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserSerializer_confident'
-          description: ''
-  /api/olympiada:
-    post:
-      operationId: api_olympiada_create
+      operationId: api_results_retrieve
       tags:
       - api
       security:
@@ -719,9 +525,8 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/participant:
     post:
-      operationId: api_participant_create
+      operationId: api_results_create
       tags:
       - api
       security:
@@ -729,19 +534,7 @@ paths:
       - basicAuth: []
       - {}
       responses:
-        '200':
-          description: No response body
-  /api/result:
-    post:
-      operationId: api_result_create
-      tags:
-      - api
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
+        '201':
           description: No response body
   /api/schema/:
     get:
@@ -805,6 +598,7 @@ paths:
           - hi
           - hr
           - hsb
+          - ht
           - hu
           - hy
           - ia
@@ -890,8 +684,101 @@ paths:
                 additionalProperties: {}
           description: ''
   /api/school:
+    get:
+      operationId: api_school_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
     post:
       operationId: api_school_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/school/{id}:
+    get:
+      operationId: api_school_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_school_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_school_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/student:
+    get:
+      operationId: api_student_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/student/{id}:
+    get:
+      operationId: api_student_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
       - api
       security:
@@ -902,8 +789,54 @@ paths:
         '200':
           description: No response body
   /api/subdivision:
+    get:
+      operationId: api_subdivision_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
     post:
       operationId: api_subdivision_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/subdivision/{id}:
+    get:
+      operationId: api_subdivision_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_subdivision_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
       - api
       security:
@@ -925,18 +858,11 @@ paths:
       responses:
         '200':
           description: No response body
-  /upload/{filename}:
-    put:
-      operationId: upload_update
-      parameters:
-      - in: path
-        name: filename
-        schema:
-          type: string
-          pattern: ^[^/]+$
-        required: true
+  /api/user:
+    get:
+      operationId: api_user_retrieve
       tags:
-      - upload
+      - api
       security:
       - tokenAuth: []
       - basicAuth: []
@@ -944,43 +870,28 @@ paths:
       responses:
         '200':
           description: No response body
-  /upload/participants/{olymp_id}/{filename}:
-    put:
-      operationId: upload_participants_update
-      parameters:
-      - in: path
-        name: filename
-        schema:
-          type: string
-          pattern: ^[^/]+$
-        required: true
-      - in: path
-        name: olymp_id
-        schema:
-          type: string
-          pattern: ^\d+$
-        required: true
+    post:
+      operationId: api_user_create
       tags:
-      - upload
+      - api
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
-        '200':
+        '201':
           description: No response body
-  /uploadsubdivision/{filename}:
-    put:
-      operationId: uploadsubdivision_update
+  /api/user/{id}:
+    get:
+      operationId: api_user_retrieve_2
       parameters:
       - in: path
-        name: filename
+        name: id
         schema:
-          type: string
-          pattern: ^[^/]+$
+          type: integer
         required: true
       tags:
-      - uploadsubdivision
+      - api
       security:
       - tokenAuth: []
       - basicAuth: []
@@ -990,322 +901,27 @@ paths:
           description: No response body
 components:
   schemas:
-    Application:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        student:
-          allOf:
-          - $ref: '#/components/schemas/Student'
-          readOnly: true
-        student_id:
-          type: integer
-          writeOnly: true
-        olymp:
-          allOf:
-          - $ref: '#/components/schemas/Olymp'
-          readOnly: true
-        olymp_id:
-          type: integer
-          writeOnly: true
-        date:
-          type: string
-          format: date-time
-          readOnly: true
-          title: Дата регистрации
-        employee:
-          type: integer
-          nullable: true
-          title: Ответственный
-        status:
-          allOf:
-          - $ref: '#/components/schemas/StatusEnum'
-          title: Статус заявки
-          minimum: -9223372036854775808
-          maximum: 9223372036854775807
-        participate:
-          type: integer
-          maximum: 12
-          minimum: 1
-          title: Класс участия
-        school:
-          allOf:
-          - $ref: '#/components/schemas/School'
-          readOnly: true
-        school_id:
-          type: integer
-          writeOnly: true
-        teacher:
-          type: integer
-          nullable: true
-          title: Учитель
-        subdivision:
-          allOf:
-          - $ref: '#/components/schemas/Subdivision'
-          readOnly: true
-        subdivision_id:
-          type: integer
-          writeOnly: true
-      required:
-      - date
-      - id
-      - olymp
-      - olymp_id
-      - participate
-      - school
-      - school_id
-      - student
-      - student_id
-      - subdivision
-      - subdivision_id
     AuthToken:
       type: object
       properties:
-        username:
-          type: string
-          writeOnly: true
-        password:
-          type: string
-          writeOnly: true
         token:
           type: string
           readOnly: true
       required:
-      - password
       - token
-      - username
-    Country:
+    AuthTokenRequest:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        country_name:
-          type: string
-          title: Название страны
-          maxLength: 200
-      required:
-      - country_name
-      - id
-    Employee:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 200
-        role:
-          allOf:
-          - $ref: '#/components/schemas/RoleEnum'
-          minimum: -9223372036854775808
-          maximum: 9223372036854775807
-        user:
-          type: integer
-          nullable: true
-          title: Пользователь
-      required:
-      - id
-      - name
-    Olymp:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        olymp_name:
-          type: string
-          title: Наименование
-          maxLength: 200
-        olymp_date_start:
-          type: string
-          format: date
-          title: Дата проведения
-        olymp_time:
-          type: string
-          format: time
-          title: Длительность
-      required:
-      - id
-      - olymp_date_start
-      - olymp_name
-      - olymp_time
-    Participant:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        student:
-          allOf:
-          - $ref: '#/components/schemas/Student'
-          readOnly: true
-        student_id:
-          type: integer
-          writeOnly: true
-        application:
-          allOf:
-          - $ref: '#/components/schemas/Application'
-          readOnly: true
-        application_id:
-          type: integer
-          writeOnly: true
-      required:
-      - application
-      - application_id
-      - id
-      - student
-      - student_id
-    Result:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        participant:
-          allOf:
-          - $ref: '#/components/schemas/Participant'
-          readOnly: true
-        participant_id:
-          type: integer
-          writeOnly: true
-        task_number:
-          type: string
-          title: Номер задачи
-          maxLength: 1
-        result_value:
-          type: integer
-          maximum: 100
-          minimum: 0
-          title: Балл
-      required:
-      - id
-      - participant
-      - participant_id
-      - result_value
-      - task_number
-    RoleEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      description: |-
-        * `0` - Организатор
-        * `1` - Представитель муниципалитета
-        * `2` - Учитель
-    School:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        school_name:
-          type: string
-          title: Название образовательной организации
-          maxLength: 200
-        school_subdivision:
-          type: integer
-          nullable: true
-          title: Местоположение
-      required:
-      - id
-      - school_name
-    SexEnum:
-      enum:
-      - 0
-      - 1
-      type: integer
-      description: |-
-        * `0` - Мужской
-        * `1` - Женский
-    StatusEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      description: |-
-        * `0` - В ожидании
-        * `1` - Принята
-        * `2` - Отклонена
-    Student:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 200
-        birthday:
-          type: string
-          format: date
-          title: Дата рождения
-        course_study:
-          type: integer
-          maximum: 12
-          minimum: 1
-          title: Класс обучения
-        special_needs:
-          type: boolean
-          title: Ограниченные возможности здоровья
-        contact_phone:
-          type: string
-          title: Контактный номер телефона
-          maxLength: 20
-        country:
-          type: integer
-          nullable: true
-          title: Страна
-        sex:
-          allOf:
-          - $ref: '#/components/schemas/SexEnum'
-          title: Пол
-          minimum: -9223372036854775808
-          maximum: 9223372036854775807
-      required:
-      - birthday
-      - contact_phone
-      - course_study
-      - id
-      - name
-      - sex
-    Subdivision:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        subdivision_name:
-          type: string
-          title: Наименование района
-          maxLength: 200
-      required:
-      - id
-      - subdivision_name
-    UserSerializer_confident:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
         username:
           type: string
-          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
-            only.
-          pattern: ^[\w.@+-]+$
-          maxLength: 150
-        email:
+          writeOnly: true
+          minLength: 1
+        password:
           type: string
-          format: email
-          title: Email address
-          maxLength: 254
+          writeOnly: true
+          minLength: 1
       required:
-      - id
+      - password
       - username
   securitySchemes:
     basicAuth:

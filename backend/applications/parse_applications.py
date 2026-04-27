@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from .factory import Factory
+from applications.factory import Factory
 
 class ApplicationParser():
     @classmethod

@@ -8,7 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from .serializers import ParticipantSerializer
 
-class ParticipantViewSet(APIView):
+class OneParticipantViewSet(APIView):
     def get(self, request, id, format=None):
         #id = request.GET['id']
         participant = get_object_or_404(Participant, pk=id)
@@ -22,8 +22,14 @@ class ParticipantViewSet(APIView):
             ser.save()
             output["valid"] = True
         return Response(output)
+    
 
-class AddParticipantViewSet(APIView):
+class ParticipantViewSet(ModelViewSet):
+    queryset = Participant.objects.all()
+    serializer_class = ParticipantSerializer
+    def get(self, request):
+        return super().list(request)
+    
     def post(self, request):
         output = {"valid": False}
         if request.method == "POST":
@@ -39,7 +45,3 @@ class AddParticipantViewSet(APIView):
                 output['valid'] = False
                 output['msg'] = 'Ошибка при сохранении'
         return Response(output)
-
-class ParticipantViewList(ModelViewSet):
-    queryset = Participant.objects.all()
-    serializer_class = ParticipantSerializer

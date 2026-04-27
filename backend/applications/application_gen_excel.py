@@ -1,5 +1,7 @@
-from .models import Subdivision, School, Person, teacher
-from .models import Application, Country, Student, Olympiada, Employee, ROLES, sex
+from schools.models import Subdivision, School
+from users.models import Employee, Person, ROLES
+from .models import Student, Country, Application, sex
+from olymp.models import Olympiada
 from openpyxl import load_workbook
 from openpyxl.styles import Border, Side, Alignment, Font
 
