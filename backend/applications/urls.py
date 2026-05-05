@@ -15,7 +15,7 @@ api = [
     path('country/<int:id>', OneCountryViewSet.as_view()),
     path('country', CountryViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('student/<int:id>', OneStudentViewSet.as_view()),
-    path('student', StudentViewSet.as_view({'get': 'list'})),
+    path('student', StudentViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('getstudentfromolymp/<int:olymp_id>', StudentFromOlympViewList.as_view({'get': 'list'})),
 ]
 urlpatterns = [

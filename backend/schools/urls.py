@@ -7,8 +7,7 @@ api = [
     path('subdivision', SubdivisionViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('subdivision/<int:id>', OneSubdivisionViewSet.as_view()),
     path('school', SchoolViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('school/<int:id>', OneSchoolViewSet.as_view()),
-    path('uploadfile', FileUploadView.as_view()),
+    path('school/<int:id>', OneSchoolViewSet.as_view())
 ]
 urlpatterns = [
     re_path(r'^upload/(?P<filename>[^/]+)$', FileUploadView.as_view()),

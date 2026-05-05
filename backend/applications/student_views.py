@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from applications.serializer_factory import get_student_serializer
+from common.serializers import StudentSerializer
 
 class OneStudentViewSet(APIView):
     def get(self, request, id, format=None):
@@ -16,10 +17,26 @@ class OneStudentViewSet(APIView):
     
 
 class StudentViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
     def get(self, request):
-        queryset = Student.objects.all()
-        serializer_class = StudentSerializer
         return super().list(request)
+    def post(self, request):
+        output = {"valid": False}
+        if request.method == "POST":
+            try:
+                ser = StudentSerializer(data=request.data)
+                if ser.is_valid():
+                    ser.save()
+                    output["valid"] = True
+                else:
+                    output["valid"] = False
+                    output['msg'] = 'Проверьте правильность заполнения формы'
+            except Exception as e:
+                output['valid'] = False
+                output['msg'] = 'Ошибка при сохранении'
+            return Response(output)
+        
 
 class StudentFromOlympViewList(ModelViewSet):
     queryset = Student.objects.all()
@@ -32,3 +49,5 @@ class StudentFromOlympViewList(ModelViewSet):
         ser = get_student_serializer()#StudentSerializer(students, many=True)
         output = ser.data
         return Response(output)
+    
+        

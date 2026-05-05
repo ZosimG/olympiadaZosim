@@ -12,13 +12,13 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/AuthTokenRequest'
+              $ref: '#/components/schemas/AuthToken'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/AuthTokenRequest'
+              $ref: '#/components/schemas/AuthToken'
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthTokenRequest'
+              $ref: '#/components/schemas/AuthToken'
         required: true
       security:
       - tokenAuth: []
@@ -32,7 +32,7 @@ paths:
           description: ''
   /api/application:
     get:
-      operationId: api_application_retrieve
+      operationId: api_application_list
       tags:
       - api
       security:
@@ -41,21 +41,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+          description: ''
     post:
       operationId: api_application_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Application'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
   /api/application/{id}:
     get:
-      operationId: api_application_retrieve_2
+      operationId: api_application_retrieve
       parameters:
       - in: path
         name: id
@@ -137,7 +159,7 @@ paths:
           description: No response body
   /api/country:
     get:
-      operationId: api_country_retrieve
+      operationId: api_country_list
       tags:
       - api
       security:
@@ -146,21 +168,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Country'
+          description: ''
     post:
       operationId: api_country_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Country'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Country'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Country'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Country'
+          description: ''
   /api/country/{id}:
     get:
-      operationId: api_country_retrieve_2
+      operationId: api_country_retrieve
       parameters:
       - in: path
         name: id
@@ -212,7 +256,7 @@ paths:
           description: No response body
   /api/employee:
     get:
-      operationId: api_employee_retrieve
+      operationId: api_employee_list
       tags:
       - api
       security:
@@ -221,21 +265,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+          description: ''
     post:
       operationId: api_employee_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
   /api/employee/{id}:
     get:
-      operationId: api_employee_retrieve_2
+      operationId: api_employee_retrieve
       parameters:
       - in: path
         name: id
@@ -347,7 +413,7 @@ paths:
           description: No response body
   /api/olympiada:
     get:
-      operationId: api_olympiada_retrieve
+      operationId: api_olympiada_list
       tags:
       - api
       security:
@@ -356,21 +422,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Olymp'
+          description: ''
     post:
       operationId: api_olympiada_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Olymp'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Olymp'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Olymp'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Olymp'
+          description: ''
   /api/olympiada/{id}:
     get:
-      operationId: api_olympiada_retrieve_2
+      operationId: api_olympiada_retrieve
       parameters:
       - in: path
         name: id
@@ -422,7 +510,7 @@ paths:
           description: No response body
   /api/participant:
     get:
-      operationId: api_participant_retrieve
+      operationId: api_participant_list
       tags:
       - api
       security:
@@ -431,21 +519,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Participant'
+          description: ''
     post:
       operationId: api_participant_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Participant'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Participant'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Participant'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participant'
+          description: ''
   /api/participant/{id}:
     get:
-      operationId: api_participant_retrieve_2
+      operationId: api_participant_retrieve
       parameters:
       - in: path
         name: id
@@ -515,7 +625,7 @@ paths:
           description: No response body
   /api/results:
     get:
-      operationId: api_results_retrieve
+      operationId: api_results_list
       tags:
       - api
       security:
@@ -524,18 +634,40 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result'
+          description: ''
     post:
       operationId: api_results_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Result'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Result'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Result'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+          description: ''
   /api/schema/:
     get:
       operationId: api_schema_retrieve
@@ -685,7 +817,7 @@ paths:
           description: ''
   /api/school:
     get:
-      operationId: api_school_retrieve
+      operationId: api_school_list
       tags:
       - api
       security:
@@ -694,21 +826,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/School'
+          description: ''
     post:
       operationId: api_school_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/School'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/School'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+          description: ''
   /api/school/{id}:
     get:
-      operationId: api_school_retrieve_2
+      operationId: api_school_retrieve
       parameters:
       - in: path
         name: id
@@ -760,7 +914,7 @@ paths:
           description: No response body
   /api/student:
     get:
-      operationId: api_student_retrieve
+      operationId: api_student_list
       tags:
       - api
       security:
@@ -769,10 +923,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+          description: ''
+    post:
+      operationId: api_student_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Student'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
   /api/student/{id}:
     get:
-      operationId: api_student_retrieve_2
+      operationId: api_student_retrieve
       parameters:
       - in: path
         name: id
@@ -790,7 +977,7 @@ paths:
           description: No response body
   /api/subdivision:
     get:
-      operationId: api_subdivision_retrieve
+      operationId: api_subdivision_list
       tags:
       - api
       security:
@@ -799,21 +986,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subdivision'
+          description: ''
     post:
       operationId: api_subdivision_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subdivision'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Subdivision'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Subdivision'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subdivision'
+          description: ''
   /api/subdivision/{id}:
     get:
-      operationId: api_subdivision_retrieve_2
+      operationId: api_subdivision_retrieve
       parameters:
       - in: path
         name: id
@@ -860,7 +1069,7 @@ paths:
           description: No response body
   /api/user:
     get:
-      operationId: api_user_retrieve
+      operationId: api_user_list
       tags:
       - api
       security:
@@ -869,21 +1078,43 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSerializer_confident'
+          description: ''
     post:
       operationId: api_user_create
       tags:
       - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSerializer_confident'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserSerializer_confident'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserSerializer_confident'
+        required: true
       security:
       - tokenAuth: []
       - basicAuth: []
       - {}
       responses:
         '201':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerializer_confident'
+          description: ''
   /api/user/{id}:
     get:
-      operationId: api_user_retrieve_2
+      operationId: api_user_retrieve
       parameters:
       - in: path
         name: id
@@ -901,27 +1132,320 @@ paths:
           description: No response body
 components:
   schemas:
-    AuthToken:
+    Application:
       type: object
       properties:
-        token:
-          type: string
+        id:
+          type: integer
           readOnly: true
+        student:
+          allOf:
+          - $ref: '#/components/schemas/Student'
+          readOnly: true
+        student_id:
+          type: integer
+          writeOnly: true
+        olymp:
+          allOf:
+          - $ref: '#/components/schemas/Olymp'
+          readOnly: true
+        olymp_id:
+          type: integer
+          writeOnly: true
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Дата регистрации
+        employee:
+          type: integer
+          nullable: true
+          title: Ответственный
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: Статус заявки
+          minimum: -9223372036854775808
+          maximum: 9223372036854775807
+        participate:
+          type: integer
+          maximum: 12
+          minimum: 1
+          title: Класс участия
+        school:
+          allOf:
+          - $ref: '#/components/schemas/School'
+          readOnly: true
+        school_id:
+          type: integer
+          writeOnly: true
+        teacher:
+          type: integer
+          nullable: true
+          title: Учитель
+        subdivision:
+          allOf:
+          - $ref: '#/components/schemas/Subdivision'
+          readOnly: true
+        subdivision_id:
+          type: integer
+          writeOnly: true
       required:
-      - token
-    AuthTokenRequest:
+      - date
+      - id
+      - olymp
+      - olymp_id
+      - participate
+      - school
+      - school_id
+      - student
+      - student_id
+      - subdivision
+      - subdivision_id
+    AuthToken:
       type: object
       properties:
         username:
           type: string
           writeOnly: true
-          minLength: 1
         password:
           type: string
           writeOnly: true
-          minLength: 1
+        token:
+          type: string
+          readOnly: true
       required:
       - password
+      - token
+      - username
+    Country:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        country_name:
+          type: string
+          title: Название страны
+          maxLength: 200
+      required:
+      - country_name
+      - id
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          minimum: -9223372036854775808
+          maximum: 9223372036854775807
+        user:
+          type: integer
+          nullable: true
+          title: Пользователь
+      required:
+      - id
+      - name
+    Olymp:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        olymp_name:
+          type: string
+          title: Наименование
+          maxLength: 200
+        olymp_date_start:
+          type: string
+          format: date
+          title: Дата проведения
+        olymp_time:
+          type: string
+          format: time
+          title: Длительность
+      required:
+      - id
+      - olymp_date_start
+      - olymp_name
+      - olymp_time
+    Participant:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student:
+          type: integer
+          title: Учащийся
+        student_id:
+          type: integer
+          writeOnly: true
+        application:
+          type: integer
+          title: Заявка
+        application_id:
+          type: integer
+          writeOnly: true
+      required:
+      - application
+      - application_id
+      - id
+      - student
+      - student_id
+    Result:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        participant:
+          allOf:
+          - $ref: '#/components/schemas/Participant'
+          readOnly: true
+        participant_id:
+          type: integer
+          writeOnly: true
+        task_number:
+          type: string
+          title: Номер задачи
+          maxLength: 1
+        result_value:
+          type: integer
+          maximum: 100
+          minimum: 0
+          title: Балл
+      required:
+      - id
+      - participant
+      - participant_id
+      - result_value
+      - task_number
+    RoleEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Организатор
+        * `1` - Представитель муниципалитета
+        * `2` - Учитель
+    School:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        school_name:
+          type: string
+          title: Название образовательной организации
+          maxLength: 200
+        school_subdivision:
+          type: integer
+          nullable: true
+          title: Местоположение
+      required:
+      - id
+      - school_name
+    SexEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Мужской
+        * `1` - Женский
+    StatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - В ожидании
+        * `1` - Принята
+        * `2` - Отклонена
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        birthday:
+          type: string
+          format: date
+          title: Дата рождения
+        course_study:
+          type: integer
+          maximum: 12
+          minimum: 1
+          title: Класс обучения
+        special_needs:
+          type: boolean
+          title: Ограниченные возможности здоровья
+        contact_phone:
+          type: string
+          title: Контактный номер телефона
+          maxLength: 20
+        country:
+          type: integer
+          nullable: true
+          title: Страна
+        sex:
+          allOf:
+          - $ref: '#/components/schemas/SexEnum'
+          title: Пол
+          minimum: -9223372036854775808
+          maximum: 9223372036854775807
+      required:
+      - birthday
+      - contact_phone
+      - course_study
+      - id
+      - name
+      - sex
+    Subdivision:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        subdivision_name:
+          type: string
+          title: Наименование района
+          maxLength: 200
+      required:
+      - id
+      - subdivision_name
+    UserSerializer_confident:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+      required:
+      - id
       - username
   securitySchemes:
     basicAuth:
