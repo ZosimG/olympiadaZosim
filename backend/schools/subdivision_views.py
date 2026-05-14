@@ -9,13 +9,16 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from schools.serializers import SubdivisionSerializer
 from .parse_subdivisions import SubdivisionParser
+from common.base_view import BaseViewSet
 
-class OneSubdivisionViewSet(APIView):
+
+class OneSubdivisionViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         #id = request.GET['id']
         subdivision = get_object_or_404(Subdivision, pk=id)
         ser = SubdivisionSerializer(subdivision)
         return Response(ser.data)
+    
     def put(self, request, id, format=None):
         output = {"valid": False}
         subdivision = get_object_or_404(Subdivision, pk=id)
@@ -25,7 +28,7 @@ class OneSubdivisionViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class SubdivisionViewSet(ModelViewSet):
+class SubdivisionViewSet(BaseViewSet, ModelViewSet):
     queryset = Subdivision.objects.all()
     serializer_class = SubdivisionSerializer
     def get(self, request):
@@ -47,7 +50,7 @@ class SubdivisionViewSet(ModelViewSet):
                 output['msg'] = 'Ошибка при сохранении'
         return Response(output)
 
-class SubdivisionFileUploadView(APIView):
+class SubdivisionFileUploadView(BaseViewSet):
     parser_classes = [FileUploadParser]
     def put(self, request, filename, format=None):
         folder='folder'

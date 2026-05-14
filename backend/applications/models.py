@@ -33,7 +33,6 @@ class Student(Person):
     country = models.ForeignKey(Country, verbose_name="Страна", null=True, on_delete=models.SET_NULL, related_name='countries')
     sex = models.IntegerField("Пол", choices=sex)
 
-
 class Application(models.Model):
     student = models.ForeignKey(Student, verbose_name="Учащийся", on_delete=models.CASCADE, related_name='students')
     olymp = models.ForeignKey(Olympiada, verbose_name="Олимпиада", on_delete=models.CASCADE, related_name='olympiadas')
@@ -44,5 +43,3 @@ class Application(models.Model):
     school = models.ForeignKey(School, verbose_name="Общеобразовательная организация", null=True, on_delete=models.SET_NULL, related_name='schools')
     teacher = models.ForeignKey(Employee, verbose_name="Учитель", null=True, on_delete=models.SET_NULL, related_name='teachers')
     subdivision = models.ForeignKey(Subdivision, verbose_name="Местоположение", null=True, on_delete=models.SET_NULL, related_name='app_subdivisions')
-
-    

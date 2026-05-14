@@ -7,8 +7,9 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from common.serializers import OlympSerializer
+from common.base_view import BaseViewSet
 
-class OneOlympViewSet(APIView):
+class OneOlympViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         #id = request.GET['id']
         olympiada = get_object_or_404(Olympiada, pk=id)
@@ -38,7 +39,7 @@ class OneOlympViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class OlympViewSet(ModelViewSet):
+class OlympViewSet(BaseViewSet, ModelViewSet):
     queryset = Olympiada.objects.all()
     serializer_class = OlympSerializer
     

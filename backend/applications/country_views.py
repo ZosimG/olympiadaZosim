@@ -6,9 +6,11 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from applications.serializers import CountrySerializer
+from common.base_view import BaseViewSet
 
-class OneCountryViewSet(APIView):
+class OneCountryViewSet(BaseViewSet):
     def get(self, request, id, format=None):
+        permission_classes = [AllowAny]
         country = get_object_or_404(Country, pk=id)
         ser = CountrySerializer(country)
         output = ser.data
@@ -29,6 +31,7 @@ class OneCountryViewSet(APIView):
             return Response(output)
 
     def put(self, request, id, format=None):
+        permission_classes = [HasAPIKey]
         output = {"valid": False}
         country = get_object_or_404(Country, pk=id)
         ser = CountrySerializer(country, data=request.data)
@@ -38,9 +41,10 @@ class OneCountryViewSet(APIView):
         return Response(output)
 
 
-class CountryViewSet(ModelViewSet):
+class CountryViewSet(BaseViewSet, ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+    
     def get(self, request):
         return super().list(request)
     

@@ -11,14 +11,16 @@ from rest_framework.parsers import FileUploadParser
 from applications.parse_applications import ApplicationParser
 from common.serializers import ApplicationSerializer
 from applications.serializers import ApplicationStatusSerializer, AppplicationsStatusSertializerMultiple
+from common.base_view import BaseViewSet
 
-class OneApplicationViewSet(APIView):
+class OneApplicationViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         application = get_object_or_404(Application, pk=id)
         ser = ApplicationSerializer(application)
         output = ser.data
         output["Название"] = application.olymp.olymp_name
         return Response(output)
+    
     def delete(self, request, id, format=None):
         output = {"valid": True, "message": ''}
         if request.method == "DELETE":
@@ -42,13 +44,15 @@ class OneApplicationViewSet(APIView):
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ApplicationViewSet(ModelViewSet):
+class ApplicationViewSet(BaseViewSet, ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer   
+    
     def get(self, request):
         return super().list(request) 
     
     def post(self, request):
+        permission_classes = [HasAPIKey]
         output = {"valid": False}
         if request.method == "POST":
             try:
@@ -64,7 +68,7 @@ class ApplicationViewSet(ModelViewSet):
                 output['msg'] = 'Ошибка при сохранении'
             return Response(output)
 
-class ChangeApplicationStatus(APIView):
+class ChangeApplicationStatus(BaseViewSet):
     def put(self, request, id, format=None):
         if request.method == "PUT":
             application = get_object_or_404(Application, pk=id)
@@ -75,7 +79,7 @@ class ChangeApplicationStatus(APIView):
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("Error")
 
-class ChangeApplicationStatusMultiple(APIView):
+class ChangeApplicationStatusMultiple(BaseViewSet):
     def put(self, request, format=None):
         if request.method == "PUT":
             ser = AppplicationsStatusSertializerMultiple(data=request.data)
@@ -90,8 +94,9 @@ class ChangeApplicationStatusMultiple(APIView):
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("Error")
 
-class ApplicationUploadView(APIView):
+class ApplicationUploadView(BaseViewSet):
     parser_classes = [FileUploadParser]
+    
     def put(self, request, olymp_id, filename, format=None):
         folder='folder'
         result = {"error": ""}

@@ -2,23 +2,23 @@ import os.path
 from django.shortcuts import get_object_or_404
 from .models import Student, Application
 from rest_framework import viewsets, status
-from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from applications.serializer_factory import get_student_serializer
 from common.serializers import StudentSerializer
+from common.base_view import BaseViewSet
 
-class OneStudentViewSet(APIView):
+class OneStudentViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         student = get_object_or_404(Student, pk=id)
         ser = StudentSerializer(student)
         return Response(ser.data)
     
 
-class StudentViewSet(ModelViewSet):
+class StudentViewSet(BaseViewSet, ModelViewSet):
     queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = get_student_serializer()
     def get(self, request):
         return super().list(request)
     def post(self, request):
@@ -38,7 +38,7 @@ class StudentViewSet(ModelViewSet):
             return Response(output)
         
 
-class StudentFromOlympViewList(ModelViewSet):
+class StudentFromOlympViewList(BaseViewSet, ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = get_student_serializer()#StudentSerializer
 

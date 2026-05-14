@@ -14,9 +14,11 @@ from .parse_applications import ApplicationParser
 from applications.serializer_factory import get_application_serializer#ApplicationSerializer
 from applications.serializers import ApplicationStatusSerializer, AppplicationsStatusSertializerMultiple
 from .application_gen_excel import ApplicationGen
+from common.base_view import BaseViewSet
 
-class ApplicationGenView(APIView):
+class ApplicationGenView(BaseViewSet):
     def get(self, request, olymp_id, format=None):
+        permission_classes = [AllowAny]
         excel_file = BytesIO()
         excel_wb = ApplicationGen.generate(olymp_id)
         excel_wb.save(excel_file)

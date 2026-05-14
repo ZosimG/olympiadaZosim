@@ -10,8 +10,10 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from users.serializers import EmployeeSerializer
+from common.base_view import BaseViewSet
 
-class OneEmployeeViewSet(APIView):
+
+class OneEmployeeViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         employee = get_object_or_404(Employee, pk=id)
         ser = EmployeeSerializer(employee)
@@ -40,7 +42,7 @@ class OneEmployeeViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class EmployeeViewSet(ModelViewSet):
+class EmployeeViewSet(BaseViewSet, ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     def get(self, request):

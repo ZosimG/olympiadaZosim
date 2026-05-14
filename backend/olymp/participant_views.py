@@ -7,13 +7,23 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from .serializers import ParticipantSerializer
+from common.base_view import BaseViewSet
 
-class OneParticipantViewSet(APIView):
+
+class OneParticipantViewSet(BaseViewSet):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        else:
+            return [HasAPIKey()]
+        return super().get_permissions()
+    
     def get(self, request, id, format=None):
         #id = request.GET['id']
         participant = get_object_or_404(Participant, pk=id)
         ser = ParticipantSerializer(participant)
         return Response(ser.data)
+    
     def put(self, request, id, format=None):
         output = {"valid": False}
         participant = get_object_or_404(Participant, pk=id)
@@ -24,9 +34,10 @@ class OneParticipantViewSet(APIView):
         return Response(output)
     
 
-class ParticipantViewSet(ModelViewSet):
+class ParticipantViewSet(BaseViewSet, ModelViewSet):
     queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
+    
     def get(self, request):
         return super().list(request)
     

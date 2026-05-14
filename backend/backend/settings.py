@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'olymp',
     'rest_framework',
+    'rest_framework_api_key',
     'rest_framework.authtoken',
     'corsheaders',
     'drf_spectacular',
@@ -52,10 +53,31 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication'
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        'rest_framework_api_key.permissions.HasAPIKey'
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
+}
+
+SPECTACULAR_SETTINGS = {
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_SETTINGS': {
+        'persistAuthorization': True,
+    },
+    'APPEND_COMPONENTS': {
+        'securitySchemes': {
+            'ApiKeyAuth': {
+                'type': 'apiKey',
+                'in': 'header',
+                'name': 'Authorization',
+                'description': 'Enter: Api-Key <<YOUR_API_KEY>>',
+            }
+        }
+    },
+    'SECURITY': [{'ApiKeyAuth': []}],
 }
 
 MIDDLEWARE = [

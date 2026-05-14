@@ -12,17 +12,18 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import permissions
+from common.base_view import BaseViewSet
 
 
-# Create your views here.
-class OneUserViewSet(APIView):
+class OneUserViewSet(BaseViewSet):
     def get(self, request, id, format=None):
+        permission_classes = [AllowAny]
         #id = request.GET['id']
         user = get_object_or_404(User, pk=id)
         ser = UserSerializer(user)
         return Response(ser.data)
 
-class UserViewSet(ModelViewSet):
+class UserViewSet(BaseViewSet, ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer_confident
     def get(self, request):
@@ -51,12 +52,12 @@ class UserViewSet(ModelViewSet):
         return Response(output)
 
 
-class GenderViewList(APIView):
+class GenderViewList(BaseViewSet):
     def get(self, request):
         sex_dict = dict(sex)
         return Response(sex_dict)
 
-class RoleViewList(APIView):
+class RoleViewList(BaseViewSet):
     def get(self, request):
         role_dict = dict(ROLES)
         return Response(role_dict)

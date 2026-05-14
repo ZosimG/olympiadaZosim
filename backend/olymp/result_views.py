@@ -7,13 +7,15 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from .serializers import ResultSerializer
+from common.base_view import BaseViewSet
 
-class OneResultViewSet(APIView):
+class OneResultViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         #id = request.GET['id']
         result = get_object_or_404(Result, pk=id)
         ser = ResultSerializer(result)
         return Response(ser.data)
+    
     def put(self, request, id, format=None):
         output = {"valid": False}
         result = get_object_or_404(Result, pk=id)
@@ -23,7 +25,7 @@ class OneResultViewSet(APIView):
             output["valid"] = True
         return Response(output)
 
-class ResultViewSet(ModelViewSet):
+class ResultViewSet(BaseViewSet, ModelViewSet):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
     

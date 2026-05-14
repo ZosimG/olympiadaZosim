@@ -9,13 +9,15 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from schools.serializers import SchoolSerializer
 from .parse_schools import SchoolParser
+from common.base_view import BaseViewSet
 
 
-class OneSchoolViewSet(APIView):
+class OneSchoolViewSet(BaseViewSet):
     def get(self, request, id, format=None):
         school = get_object_or_404(School, pk=id)
         ser = SchoolSerializer(school)
         return Response(ser.data)
+    
     def put(self, request, id, format=None):
         output = {"valid": False}
         school = get_object_or_404(School, pk=id)
@@ -24,6 +26,7 @@ class OneSchoolViewSet(APIView):
             ser.save()
             output["valid"] = True
         return Response(output)
+    
     def delete(self, request, id, format=None):
         output = {"valid": True, "message": ''}
         if request.method == "DELETE":
@@ -42,9 +45,10 @@ class OneSchoolViewSet(APIView):
                 output["message"] = 'Ошибка!'
             return Response(output)
 
-class SchoolViewSet(ModelViewSet):
+class SchoolViewSet(BaseViewSet, ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+    
     def get(self, request):
         return super().list(request)
     
@@ -64,7 +68,7 @@ class SchoolViewSet(ModelViewSet):
                 output['msg'] = 'Ошибка при сохранении'
         return Response(output)
 
-class FileUploadView(APIView):
+class FileUploadView(BaseViewSet):
     parser_classes = [FileUploadParser]
     def put(self, request, filename, format=None):
         folder='folder'
