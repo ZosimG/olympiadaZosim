@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'olymp',
     'rest_framework',
     'rest_framework_api_key',
     'rest_framework.authtoken',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'users',
     'schools',
+    'olymp',
     'applications'
 ]
 

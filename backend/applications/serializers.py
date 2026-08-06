@@ -1,31 +1,19 @@
 from rest_framework import serializers
-
 from applications.models import Student
 from applications.models import Application
-from applications.models import Country
+from applications.models import Country, Applicant
 # from django.contrib.auth.models import User
 
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
-    """
-    A ModelSerializer that takes an additional `fields` argument that
-    controls which fields should be displayed.
-    """
-
     def __init__(self, *args, **kwargs):
-        # Don't pass the 'fields' arg up to the superclass
         fields = kwargs.pop('fields', None)
-
-        # Instantiate the superclass normally
         super().__init__(*args, **kwargs)
-
         if fields is not None:
-            # Drop any fields that are not specified in the `fields` argument.
             allowed = set(fields)
             existing = set(self.fields)
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
-
 
 gender = serializers.SerializerMethodField('')
 
@@ -35,6 +23,17 @@ def getGender(self, obj):
 
 
 
+class ApplicantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Applicant
+        fields = ['id', 'student', 'team']
+
+    def validate(self, data):
+        if not data.get('student') and not data.get('team'):
+            raise serializers.ValidationError("Должен быть указан либо студент, либо команда")
+        if data.get('student') and data.get('team'):
+            raise serializers.ValidationError("Нельзя указать и студента, и команду одновременно")
+        return data
 
 
 class ApplicationStatusSerializer(serializers.ModelSerializer):

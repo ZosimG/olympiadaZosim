@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from schools.serializers import SchoolSerializer, SubdivisionSerializer 
 from applications.models import Student
-from olymp.models import Olympiada
+from olymp.models import Olympiada, Participant
 from schools.models import Subdivision, School
-from applications.models import Application
-
+from applications.models import Application, Team, Applicant
+from applications.serializers import ApplicantSerializer
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,16 +21,65 @@ class OlympSerializer(serializers.ModelSerializer):
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
-    
-    student = StudentSerializer(read_only=True)
-    student_id = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all(), source="student", write_only=True)
-    olymp = OlympSerializer(read_only=True)
-    olymp_id = serializers.PrimaryKeyRelatedField(queryset=Olympiada.objects.all(), source="olymp", write_only=True)
-    school = SchoolSerializer(read_only=True)
-    school_id = serializers.PrimaryKeyRelatedField(queryset=School.objects.all(), source="school", write_only=True)
-    subdivision = SubdivisionSerializer(read_only=True)
-    subdivision_id = serializers.PrimaryKeyRelatedField(queryset=Subdivision.objects.all(), source="subdivision", write_only=True)
+    applicant = ApplicantSerializer(required=True)
+    olymp_name = serializers.CharField(source='olymp.olymp_name', read_only=True)
 
     class Meta:
         model = Application
-        fields = ['id', 'student', 'student_id', 'olymp', 'olymp_id', 'date', 'employee', 'status', 'participate', 'school', 'school_id', 'teacher', 'subdivision', 'subdivision_id']
+        fields = '__all__'
+
+    def create(self, validated_data):
+        applicant_data = validated_data.pop('applicant')
+        application = Application.objects.create(**validated_data)
+        
+        # Создаём заявителя
+        applicant = Applicant.objects.create(application=application, **applicant_data)
+        
+        # Создаём участников (Participant) через сигнал или вручную
+        if applicant.student:
+            Participant.objects.get_or_create(
+                application=application,
+                student=applicant.student,
+                team=None
+            )
+        elif applicant.team:
+            for member in applicant.team.students.all():
+                Participant.objects.get_or_create(
+                    application=application,
+                    student=member,
+                    team=applicant.team
+                )
+        return application
+
+    def update(self, instance, validated_data):
+        applicant_data = validated_data.pop('applicant', None)
+        
+        # Обновляем заявку
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        
+        # Обновляем заявителя (если передан)
+        if applicant_data and hasattr(instance, 'applicant'):
+            applicant = instance.applicant
+            for attr, value in applicant_data.items():
+                setattr(applicant, attr, value)
+            applicant.save()
+        
+        return instance
+    
+class TeamSerializer(serializers.ModelSerializer):
+    students = StudentSerializer(many=True, read_only=True)
+    students_ids = serializers.PrimaryKeyRelatedField(
+        queryset=Student.objects.all(), many=True, write_only=True, source='students'
+    )
+
+    class Meta:
+        model = Team
+        fields = ['id', 'name', 'students', 'students_ids']
+
+    def create(self, validated_data):
+        students = validated_data.pop('students', [])
+        team = Team.objects.create(**validated_data)
+        team.students.set(students)
+        return team

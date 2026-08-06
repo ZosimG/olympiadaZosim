@@ -11,13 +11,6 @@ from common.base_view import BaseViewSet
 
 
 class OneParticipantViewSet(BaseViewSet):
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [AllowAny()]
-        else:
-            return [HasAPIKey()]
-        return super().get_permissions()
-    
     def get(self, request, id, format=None):
         #id = request.GET['id']
         participant = get_object_or_404(Participant, pk=id)

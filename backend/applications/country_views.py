@@ -10,7 +10,6 @@ from common.base_view import BaseViewSet
 
 class OneCountryViewSet(BaseViewSet):
     def get(self, request, id, format=None):
-        permission_classes = [AllowAny]
         country = get_object_or_404(Country, pk=id)
         ser = CountrySerializer(country)
         output = ser.data
@@ -29,9 +28,8 @@ class OneCountryViewSet(BaseViewSet):
                 output["valid"] = False
                 output["message"] = 'Ошибка!'
             return Response(output)
-
+    
     def put(self, request, id, format=None):
-        permission_classes = [HasAPIKey]
         output = {"valid": False}
         country = get_object_or_404(Country, pk=id)
         ser = CountrySerializer(country, data=request.data)

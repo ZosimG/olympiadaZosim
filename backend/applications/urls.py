@@ -3,6 +3,7 @@ from applications.application_views import ApplicationUploadView, ApplicationVie
 from applications.country_views import CountryViewSet, OneCountryViewSet
 from applications.student_views import StudentViewSet, OneStudentViewSet, StudentFromOlympViewList
 from applications.application_gen_views import ApplicationGenView
+from applications.team_views import TeamViewSet, OneTeamViewSet
 from rest_framework.authtoken import views
 
 
@@ -17,6 +18,8 @@ api = [
     path('student/<int:id>', OneStudentViewSet.as_view()),
     path('student', StudentViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('getstudentfromolymp/<int:olymp_id>', StudentFromOlympViewList.as_view({'get': 'list'})),
+    path('team', TeamViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('team/<int:id>', OneTeamViewSet.as_view())
 ]
 urlpatterns = [
     re_path(r'^upload/participants/(?P<olymp_id>\d+)/(?P<filename>[^/]+)$', ApplicationUploadView.as_view()),
